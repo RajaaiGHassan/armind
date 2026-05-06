@@ -84,10 +84,23 @@
 
         .menu-item { 
             background: var(--card-bg); 
-            margin-bottom: 12px; 
-            padding: 20px;
+            margin-bottom: 25px; 
+            padding: 0;
             border: 1px solid #1e1e1e;
+            overflow: hidden;
             animation: fadeIn 0.3s ease forwards;
+        }
+
+        .item-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #1e1e1e;
+            display: block;
+        }
+
+        .item-content {
+            padding: 20px;
         }
 
         @keyframes fadeIn {
@@ -119,11 +132,10 @@
 
         .ar-wrapper {
             display: none;
-            margin-top: 15px;
+            margin-top: 0;
             height: 350px;
             background: #000;
             position: relative;
-            border: 1px solid #333;
         }
 
         model-viewer { width: 100%; height: 100%; }
@@ -172,38 +184,38 @@
             { id: 4, name: "Parmigiana de Berenjena", price: "11€", category: "menú a la carta", desc: "Con Focaccia, Aceite EVO y Flor de Sal.", mood: "Entrante" },
             { id: 5, name: "Fettucine al Huevo", price: "15€", category: "menú a la carta", desc: "Con Mantequilla, Anchoas y Limón.", mood: "Primer Plato" },
             { id: 6, name: "Paccheri al Huevo", price: "15€", category: "menú a la carta", desc: "Con Crema de Rúcola Artesana y Gorgonzola.", mood: "Primer Plato" },
-            { id: 7, name: "Fettucine al Huevo (Parmigiano)", price: "16€", category: "menú a la carta", desc: "Con Mantequilla, Parmigiano y Limón.", mood: "Primer Plato" },
-            { id: 8, name: "Fettucine al Huevo (Speck)", price: "15€", category: "menú a la carta", desc: "Con Speck, Gorgonzola y Crema de Nueces.", mood: "Primer Plato" },
-            { id: 9, name: "Fettucine al Huevo (Ajo)", price: "15€", category: "menú a la carta", desc: "Con Ajo, Aceite EVO y Guindilla.", mood: "Primer Plato" },
-            { id: 10, name: "Paccheri al Huevo (Tomate)", price: "14€", category: "menú a la carta", desc: "Con Tomate Seco, Alcaparras y Limón.", mood: "Primer Plato" },
-            { id: 11, name: "Paccheri al Huevo (Pesto)", price: "15€", category: "menú a la carta", desc: "Con Pesto de Albahaca Artesano.", mood: "Primer Plato" },
-            { id: 12, name: "Paccheri al Huevo (N’duja)", price: "15€", category: "menú a la carta", desc: "Con Crema de N’duja y Vino Tinto.", mood: "Primer Plato" },
+            { id: 7, name: "Fettucine al Huevo", price: "16€", category: "menú a la carta", desc: "Con Mantequilla, Parmigiano y Limón.", mood: "Primer Plato" },
+            { id: 8, name: "Fettucine al Huevo", price: "15€", category: "menú a la carta", desc: "Con Speck, Gorgonzola y Crema de Nueces.", mood: "Primer Plato" },
+            { id: 9, name: "Fettucine al Huevo", price: "15€", category: "menú a la carta", desc: "Con Ajo, Aceite EVO y Guindilla.", mood: "Primer Plato" },
+            { id: 10, name: "Paccheri al Huevo", price: "14€", category: "menú a la carta", desc: "Con Tomate Seco, Alcaparras y Limón.", mood: "Primer Plato" },
+            { id: 11, name: "Paccheri al Huevo", price: "15€", category: "menú a la carta", desc: "Con Pesto de Albahaca Artesano.", mood: "Primer Plato" },
+            { id: 12, name: "Paccheri al Huevo", price: "15€", category: "menú a la carta", desc: "Con Crema de N’duja y Vino Tinto.", mood: "Primer Plato" },
             { id: 13, name: "Tiramisù de las Abuelas", price: "8€", category: "menú a la carta", desc: "Servido con Licor de Café Artesano.", mood: "Dulce" },
             { id: 14, name: "Sorbete de Limón y Albahaca", price: "8€", category: "menú a la carta", desc: "Hecho en casa, servido con Limoncello Artesano.", mood: "Dulce" },
 
-            // --- PADELLINO GOURMET (AR ENABLED) ---
-            { id: 15, name: "Mortazza", price: "15€ / 25€", category: "padellino gourmet", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Vinagre Balsámico.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 16, name: "Calabro", price: "15€ / 25€", category: "padellino gourmet", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola DOP.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 17, name: "Montanaro", price: "15€ / 25€", category: "padellino gourmet", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 18, name: "A Copa", price: "15€ / 25€", category: "padellino gourmet", desc: "Coppa Stagionata, Rucola, Pecorino Sardo DOP y Miel Mil Flores.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 19, name: "Parma – Reggio", price: "15€ / 25€", category: "padellino gourmet", desc: "Prosciutto di Parma 18 meses, Parmigiano Reggiano 18 meses.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 20, name: "F4 Formaggi", price: "15€ / 25€", category: "padellino gourmet", desc: "Rucola, Gorgonzola DOP, Brie, Parmigiano y Pecorino.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            // --- PADELLINO GOURMET ---
+            { id: 15, name: "Mortazza", price: "15€ / 25€", category: "padellino gourmet", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Vinagre Balsámico.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1204-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 16, name: "Calabro", price: "15€ / 25€", category: "padellino gourmet", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1219-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 17, name: "Montanaro", price: "15€ / 25€", category: "padellino gourmet", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1227-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 18, name: "A Copa", price: "15€ / 25€", category: "padellino gourmet", desc: "Coppa Stagionata, Rucola, Pecorino Sardo DOP and Miel Mil Flores.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1450-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 19, name: "Parma – Reggio", price: "15€ / 25€", category: "padellino gourmet", desc: "Prosciutto di Parma 18 meses, Parmigiano Reggiano 18 meses, Tomate Cherry y Rucola.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1243-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 20, name: "F4 Formaggi", price: "15€ / 25€", category: "padellino gourmet", desc: "Rucola, Gorgonzola DOP, Brie, Parmigiano Reggiano DOP y Pecorino Sardo DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1251-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
 
-            // --- TABLAS (AR ENABLED) ---
-            { id: 21, name: "Tabla Mixta", price: "25€", category: "tablas", desc: "Mortadella DOP, Coppa, Speck DOP, Prosciutto 18M, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
-            { id: 22, name: "Tabla de Queso", price: "17€", category: "tablas", desc: "Parmigiano 18M, Brie, Gorgonzola DOP, Pecorino Sardo y Mermelada.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
-            { id: 23, name: "Tabla de Embutidos", price: "17€", category: "tablas", desc: "Mortadella DOP, Coppa Stagionata, Speck DOP, Prosciutto 18M, Spianata Calabra.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            // --- TABLAS ---
+            { id: 21, name: "Tabla Mixta", price: "25€", category: "tablas", desc: "Mortadella DOP, Coppa, Speck DOP, Prosciutto 18M, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1164-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            { id: 22, name: "Tabla de Queso", price: "17€", category: "tablas", desc: "Parmigiano 18M, Brie, Gorgonzola DOP, Pecorino Sardo y Mermelada.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1198-scaled-1.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            { id: 23, name: "Tabla de Embutidos", price: "17€", category: "tablas", desc: "Mortadella DOP, Coppa Stagionata, Speck DOP, Prosciutto 18M, Spianata Calabra.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1174-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
 
-            // --- SIGNATURE COCKTAILS (AR ENABLED) ---
-            { id: 24, name: "Smoky Peach", price: "15€", category: "signature cocktails", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre, Limón.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 25, name: "Malhigo", price: "15€", category: "signature cocktails", desc: "Gin Roku, Granadina Artesana, Zumo de Limón, Sal.", mood: "Signature", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
-            { id: 26, name: "Bombastic", price: "14€", category: "signature cocktails", desc: "Hibiki Harmony, Orange & Chocolate Bitter, Agave.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 27, name: "Shrub Barrel", price: "12€", category: "signature cocktails", desc: "Whiskey Maker’s Mark, Shrub de Manzana, Zumo de Limón.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 28, name: "Smoky Garden", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Chartreuse Verde, Cordial de Lima.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 29, name: "O’ Deus", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Tequila 8, Falernum, Limón, Agave.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 30, name: "Teka", price: "16€", category: "signature cocktails", desc: "Vodka Haku, Falernum Artesano, Tepache, Limón, Angostura.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 31, name: "Plaquiri", price: "16€", category: "signature cocktails", desc: "Ron Blanco Santiago de Cuba, Cordial de Plátano Artesano, Limón.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 32, name: "Honey Fizz", price: "16€", category: "signature cocktails", desc: "Ron 8 años Santiago de Cuba, Honey mix Pera Artesano, Lima.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            // --- SIGNATURE COCKTAILS ---
+            { id: 24, name: "Smoky Peach", price: "15€", category: "signature cocktails", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre, Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/507FF8B5-CF39-4966-AD6E-1790890D96CF-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 25, name: "Malhigo", price: "15€", category: "signature cocktails", desc: "Gin Roku, Granadina Artesana, Zumo de Limón, Sal.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2025/09/Image-10.jpg", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
+            { id: 26, name: "Bombastic", price: "14€", category: "signature cocktails", desc: "Hibiki Harmony, Orange & Chocolate Bitter, Agave.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2025/09/Image-9.jpg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 27, name: "Shrub Barrel", price: "12€", category: "signature cocktails", desc: "Whiskey Maker’s Mark, Shrub de Manzana, Zumo de Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07281-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 28, name: "Smoky Garden", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Chartreuse Verde, Cordial de Lima, Perfume de Laurel.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_0258.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 29, name: "O’ Deus", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Tequila 8, Falernum, Zumo de Limón, Agave.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07303-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 30, name: "Teka", price: "16€", category: "signature cocktails", desc: "Vodka Haku, Falernum Artesano, Tepache, Zumo de Limón, Angostura.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07357-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 31, name: "Plaquiri", price: "16€", category: "signature cocktails", desc: "Ron Blanco Santiago de Cuba, Cordial de Plátano Artesano, Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07061-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 32, name: "Honey Fizz", price: "16€", category: "signature cocktails", desc: "Ron 8 años Santiago de Cuba, Honey mix Pera Artesano, Lima.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07298-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
 
             // --- IBA COCKTAILS ---
             { id: 40, name: "Vieux Carré", price: "13€", category: "iba cocktails", desc: "Few Rye Whiskey, Cognac, Vermouth rojo, Benedictine.", mood: "IBA" },
@@ -264,20 +276,23 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
                 itemDiv.innerHTML = `
-                    <div class="flex-row">
-                        <h3 class="item-name">${item.name}</h3>
-                        <span class="price">${item.price}</span>
-                    </div>
-                    <p class="description">${item.desc}</p>
-                    <span class="mood">${item.mood}</span>
-                    ${item.glb ? `
-                        <button class="view-btn" onclick="toggleAR('ar-${item.id}', this)">EXPERIENCE IN 3D</button>
-                        <div class="ar-wrapper" id="ar-${item.id}">
-                            <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1">
-                                <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
-                            </model-viewer>
+                    ${item.image ? `<img src="${item.image}" class="item-img" alt="${item.name}" onerror="this.style.display='none'">` : ''}
+                    <div class="item-content">
+                        <div class="flex-row">
+                            <h3 class="item-name">${item.name}</h3>
+                            <span class="price">${item.price}</span>
                         </div>
-                    ` : ''}
+                        <p class="description">${item.desc}</p>
+                        <span class="mood">${item.mood}</span>
+                        ${item.glb ? `
+                            <button class="view-btn" onclick="toggleAR('ar-${item.id}', this)">EXPERIENCE IN 3D</button>
+                            <div class="ar-wrapper" id="ar-${item.id}">
+                                <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1">
+                                    <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
+                                </model-viewer>
+                            </div>
+                        ` : ''}
+                    </div>
                 `;
                 menuList.appendChild(itemDiv);
             });
