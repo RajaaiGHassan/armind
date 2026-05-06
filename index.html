@@ -3,60 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bar Zero Menu</title>
-    <!-- The AR engine -->
+    <title>Bar Digital Menu</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
-        .menu-item { border-bottom: 1px solid #333; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
-        .drink-info h2 { margin: 0; color: #f1c40f; }
-        .drink-info p { margin: 5px 0; color: #888; }
-        .ar-btn { background: #f1c40f; color: #000; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        body { background: #121212; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; }
+        h1 { border-bottom: 2px solid #f1c40f; padding-bottom: 10px; color: #f1c40f; }
+        .menu-item { background: #1e1e1e; margin-bottom: 15px; padding: 15px; border-radius: 12px; transition: 0.3s; }
+        .flex-row { display: flex; justify-content: space-between; align-items: center; }
+        .drink-info h2 { margin: 0; font-size: 1.2rem; }
+        .price { color: #f1c40f; font-weight: bold; }
+        .ar-btn { background: transparent; color: #f1c40f; border: 1px solid #f1c40f; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
+        .ar-btn:hover { background: #f1c40f; color: #000; }
         
-        /* The 3D Viewer - Hidden by default */
-        model-viewer { width: 100%; height: 300px; display: none; margin-top: 10px; }
-        .show-ar model-viewer { display: block; }
+        /* The AR Container */
+        .ar-container { display: none; margin-top: 15px; border-top: 1px solid #333; padding-top: 15px; }
+        model-viewer { width: 100%; height: 250px; --poster-color: transparent; }
+        .active .ar-container { display: block; }
     </style>
 </head>
 <body>
 
-    <h1>🍸 Signature Cocktails</h1>
+    <h1>🍸 Signature Menu</h1>
 
-    <!-- Drink 1 -->
-    <div class="menu-item" id="drink1">
-        <div class="drink-info">
-            <h2>Old Fashioned</h2>
-            <p>Bourbon, Bitters, Orange Peel</p>
-            <p><strong>$14.00</strong></p>
+    <!-- Drink Item 1 -->
+    <div class="menu-item" id="item1">
+        <div class="flex-row">
+            <div class="drink-info">
+                <h2>The Classic Astronaut</h2>
+                <p>A space-age classic. Smooth and airy.</p>
+            </div>
+            <div class="price">$15</div>
         </div>
-        <button class="ar-btn" onclick="toggleAR('drink1')">SEE IN AR</button>
-        <!-- Replace the 'src' with your actual .glb file link later -->
-        <model-viewer 
-            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-            ar ar-modes="webxr scene-viewer quick-look" 
-            camera-controls shadow-intensity="1">
-        </model-viewer>
+        <button class="ar-btn" onclick="toggleItem('item1')">VIEW DRINK</button>
+        <div class="ar-container">
+            <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" auto-rotate></model-viewer>
+        </div>
     </div>
 
-    <!-- Drink 2 -->
-    <div class="menu-item" id="drink2">
-        <div class="drink-info">
-            <h2>Negroni</h2>
-            <p>Gin, Campari, Sweet Vermouth</p>
-            <p><strong>$12.00</strong></p>
+    <!-- Drink Item 2 -->
+    <div class="menu-item" id="item2">
+        <div class="flex-row">
+            <div class="drink-info">
+                <h2>The Retro Chair</h2>
+                <p>Wood-aged and sophisticated.</p>
+            </div>
+            <div class="price">$12</div>
         </div>
-        <button class="ar-btn" onclick="toggleAR('drink2')">SEE IN AR</button>
-        <model-viewer 
-            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-            ar ar-modes="webxr scene-viewer quick-look" 
-            camera-controls shadow-intensity="1">
-        </model-viewer>
+        <button class="ar-btn" onclick="toggleItem('item2')">VIEW DRINK</button>
+        <div class="ar-container">
+            <model-viewer src="https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" auto-rotate></model-viewer>
+        </div>
     </div>
 
     <script>
-        function toggleAR(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('show-ar');
+        function toggleItem(id) {
+            document.getElementById(id).classList.toggle('active');
         }
     </script>
 </body>
