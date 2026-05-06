@@ -321,7 +321,6 @@
 
         function toggleAR(id, btn) {
     const wrapper = document.getElementById(id);
-    // Find the model-viewer element inside this specific wrapper
     const viewer = wrapper.querySelector('model-viewer');
 
     if (wrapper.style.display === "block") {
@@ -333,24 +332,26 @@
         btn.innerText = "CLOSE 3D";
         btn.classList.add('active');
 
-        // NEW: Brightness API Logic
-        // We listen for the 'load' event so we don't try to change colors before the model exists
         if (viewer && !viewer.dataset.brightened) {
             viewer.addEventListener('load', () => {
                 const materials = viewer.model.materials;
                 
                 materials.forEach((material) => {
-                    // 1. Set base color to pure white (removes dark tint)
-                    material.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
-                    
-                    // 2. Add 'Emissive' glow (0.15 is 15% brightness) 
-                    // This keeps the glass visible in dark AR environments
-                    material.setEmissiveFactor([0.15, 0.15, 0.15]);
+                    // CHECK: Is this material transparent (like glass)?
+                    const isTransparent = material.alphaMode !== 'OPAQUE';
+
+                    if (isTransparent) {
+                        // FIX FOR GLASS: Force it to be white to remove dark tint
+                        material.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
+                        material.setEmissiveFactor([0.1, 0.1, 0.1]);
+                    } else {
+                        // FIX FOR SOLID OBJECTS: Keep original colors, just boost light
+                        // We do NOT call setBaseColorFactor here so your textures stay!
+                        material.setEmissiveFactor([0.05, 0.05, 0.05]); 
+                    }
                 });
 
-                // Mark as brightened so we don't repeat this if they toggle the button again
                 viewer.dataset.brightened = "true";
-                console.log("3D Model Brightened");
             }, { once: true });
         }
     }
