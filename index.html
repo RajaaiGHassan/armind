@@ -84,17 +84,19 @@
 
         .menu-item { 
             background: var(--card-bg); 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             padding: 0;
             border: 1px solid #1e1e1e;
             overflow: hidden;
             animation: fadeIn 0.3s ease forwards;
         }
 
+        /* FIXED: 4:5 Aspect Ratio Solution */
         .item-img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: auto;
+            aspect-ratio: 4 / 5; /* This matches Instagram portrait ratio */
+            object-fit: cover;   /* Ensures the image fills the area elegantly */
             border-bottom: 1px solid #1e1e1e;
             display: block;
         }
@@ -118,7 +120,7 @@
             background: transparent;
             color: var(--amber);
             border: 1px solid var(--amber);
-            padding: 8px;
+            padding: 10px;
             width: 100%;
             cursor: pointer;
             font-size: 0.65rem;
@@ -133,7 +135,7 @@
         .ar-wrapper {
             display: none;
             margin-top: 0;
-            height: 350px;
+            height: 450px; /* Slightly taller for vertical focus */
             background: #000;
             position: relative;
         }
@@ -143,15 +145,15 @@
         .ar-trigger {
             background: #fff;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 20px;
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             font-weight: bold;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #000;
-            border-radius: 2px;
+            border-radius: 4px;
             z-index: 10;
         }
     </style>
@@ -197,7 +199,7 @@
             { id: 15, name: "Mortazza", price: "15€ / 25€", category: "padellino gourmet", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Vinagre Balsámico.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1204-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
             { id: 16, name: "Calabro", price: "15€ / 25€", category: "padellino gourmet", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1219-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
             { id: 17, name: "Montanaro", price: "15€ / 25€", category: "padellino gourmet", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1227-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 18, name: "A Copa", price: "15€ / 25€", category: "padellino gourmet", desc: "Coppa Stagionata, Rucola, Pecorino Sardo DOP and Miel Mil Flores.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1450-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 18, name: "A Copa", price: "15€ / 25€", category: "padellino gourmet", desc: "Coppa Stagionata, Rucola, Pecorino Sardo DOP y Miel Mil Flores.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1450-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
             { id: 19, name: "Parma – Reggio", price: "15€ / 25€", category: "padellino gourmet", desc: "Prosciutto di Parma 18 meses, Parmigiano Reggiano 18 meses, Tomate Cherry y Rucola.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1243-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
             { id: 20, name: "F4 Formaggi", price: "15€ / 25€", category: "padellino gourmet", desc: "Rucola, Gorgonzola DOP, Brie, Parmigiano Reggiano DOP y Pecorino Sardo DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1251-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
 
@@ -276,7 +278,7 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
                 itemDiv.innerHTML = `
-                    ${item.image ? `<img src="${item.image}" class="item-img" alt="${item.name}" onerror="this.style.display='none'">` : ''}
+                    ${item.image ? `<img src="${item.image}" class="item-img" alt="${item.name}">` : ''}
                     <div class="item-content">
                         <div class="flex-row">
                             <h3 class="item-name">${item.name}</h3>
@@ -287,7 +289,7 @@
                         ${item.glb ? `
                             <button class="view-btn" onclick="toggleAR('ar-${item.id}', this)">EXPERIENCE IN 3D</button>
                             <div class="ar-wrapper" id="ar-${item.id}">
-                                <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1">
+                                <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" touch-action="pan-y">
                                     <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
                                 </model-viewer>
                             </div>
