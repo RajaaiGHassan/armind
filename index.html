@@ -24,6 +24,7 @@
             margin: 0; 
             padding: 0;
             line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
         }
 
         header {
@@ -32,7 +33,7 @@
         }
 
         header h1 { 
-            font-size: 2.2rem; 
+            font-size: 2rem; 
             letter-spacing: 0.3em; 
             margin: 0;
             background: linear-gradient(to right, #fff, var(--amber), #fff);
@@ -45,13 +46,14 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(12, 12, 12, 0.95);
+            background: rgba(12, 12, 12, 0.9);
+            backdrop-filter: blur(10px);
             display: flex;
             overflow-x: auto;
             padding: 15px;
             gap: 10px;
             border-bottom: 1px solid #222;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
 
         .category-nav::-webkit-scrollbar { display: none; }
@@ -63,10 +65,10 @@
             padding: 8px 16px;
             white-space: nowrap;
             cursor: pointer;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             letter-spacing: 1px;
-            transition: 0.3s;
             text-transform: uppercase;
+            transition: 0.3s;
         }
 
         .cat-btn.active {
@@ -77,40 +79,41 @@
 
         .menu-container { 
             max-width: 600px; 
-            margin: 20px auto; 
-            padding: 0 15px 100px 15px;
+            margin: 0 auto; 
+            padding: 20px 15px 100px 15px;
         }
 
         .menu-item { 
             background: var(--card-bg); 
-            margin-bottom: 15px; 
+            margin-bottom: 12px; 
             padding: 20px;
             border: 1px solid #1e1e1e;
-            animation: fadeIn 0.4s ease forwards;
+            animation: fadeIn 0.3s ease forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .flex-row { display: flex; justify-content: space-between; align-items: baseline; }
-        .item-name { font-size: 1rem; color: #fff; margin: 0; }
-        .price { color: var(--amber); font-weight: bold; font-size: 0.9rem; }
-        .description { color: var(--text-gray); font-size: 0.8rem; margin: 8px 0; font-family: sans-serif; }
-        .mood { font-size: 0.7rem; color: #666; font-style: italic; display: block; margin-top: 5px; }
+        .flex-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+        .item-name { font-size: 0.95rem; color: #fff; margin: 0; text-transform: uppercase; }
+        .price { color: var(--amber); font-weight: bold; font-size: 0.85rem; white-space: nowrap; }
+        .description { color: var(--text-gray); font-size: 0.75rem; margin: 8px 0; font-family: sans-serif; letter-spacing: 0.5px; }
+        .mood { font-size: 0.65rem; color: #666; font-style: italic; display: block; margin-top: 5px; }
 
         .view-btn {
             background: transparent;
             color: var(--amber);
             border: 1px solid var(--amber);
-            padding: 10px;
+            padding: 8px;
             width: 100%;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: bold;
             margin-top: 15px;
             letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .view-btn.active { background: var(--amber); color: #000; }
@@ -136,6 +139,8 @@
             transform: translateX(-50%);
             font-weight: bold;
             font-size: 0.7rem;
+            color: #000;
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -160,26 +165,48 @@
 
     <script>
         const menuData = [
+            // --- MENÚ A LA CARTA ---
+            { category: "menú a la carta", name: "Hummus de Garbanzos", price: "8,5€", desc: "Artesano con Focaccia artesana.", mood: "Entrante" },
+            { category: "menú a la carta", name: "Bresaola & Parmigiano", price: "9,5€", desc: "Rúcola, Parmigiano y Limón con Focaccia.", mood: "Entrante" },
+            { category: "menú a la carta", name: "Pan de Cristal", price: "5,5€", desc: "Con Tomate y Aceite EVO.", mood: "Entrante" },
+            { category: "menú a la carta", name: "Parmigiana de Berenjena", price: "11€", desc: "Focaccia, Aceite EVO y Flor de Sal.", mood: "Entrante" },
+            { category: "menú a la carta", name: "Fettucine Anchoas", price: "15€", desc: "Mantequilla, Anchoas y Limón.", mood: "Pasta" },
+            { category: "menú a la carta", name: "Paccheri Gorgonzola", price: "15€", desc: "Crema de Rúcola Artesana y Gorgonzola.", mood: "Pasta" },
+            { category: "menú a la carta", name: "Fettucine Speck", price: "15€", desc: "Speck, Gorgonzola y Crema de Nueces.", mood: "Pasta" },
+            { category: "menú a la carta", name: "Paccheri Pesto", price: "15€", desc: "Con Pesto de Albahaca Artesano.", mood: "Pasta" },
+            { category: "menú a la carta", name: "Tiramisù", price: "8€", desc: "Servido con Licor de Café Artesano.", mood: "Dulce" },
+
             // --- PADELLINO GOURMET ---
-            { category: "padellino gourmet", name: "Mortazza", price: "15€ / 25€", desc: "Mortadella DOP, Pistaccio, Rucola, Limón.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "padellino gourmet", name: "Calabro", price: "15€ / 25€", desc: "Spianata Calabra, Rucola, Crema N’Duja.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            
+            { category: "padellino gourmet", name: "Mortazza", price: "15€ / 25€", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Balsámico.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { category: "padellino gourmet", name: "Calabro", price: "15€ / 25€", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { category: "padellino gourmet", name: "Montanaro", price: "15€ / 25€", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { category: "padellino gourmet", name: "Parma – Reggio", price: "15€ / 25€", desc: "Prosciutto di Parma 18m, Parmigiano, Tomate y Rucola.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+
             // --- TABLAS ---
-            { category: "tablas", name: "Tabla Mixta", price: "25€", desc: "Embutidos y quesos premium.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
-            
-            // --- SIGNATURE ---
-            { category: "signature cocktails", name: "Malhigo", price: "15€", desc: "Gin Roku, Granadina Artesana, Limón.", mood: "Signature", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
-            { category: "signature cocktails", name: "Smoky Peach", price: "15€", desc: "Laphroaig 10, Melocotón, Jengibre.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { category: "tablas", name: "Tabla Mixta", price: "25€", desc: "Mortadella, Coppa, Speck, Prosciutto, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            { category: "tablas", name: "Tabla de Queso", price: "17€", desc: "Parmigiano 18M, Brie, Gorgonzola DOP, Pecorino y Mermelada.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
 
-            // --- A LA CARTA ---
-            { category: "menú a la carta", name: "Fettucine al Huevo", price: "15€", desc: "Mantequilla, Anchoas y Limón.", mood: "Primer Plato" },
-            { category: "menú a la carta", name: "Tiramisù", price: "8€", desc: "Receta tradicional de la abuela.", mood: "Postre" },
+            // --- SIGNATURE COCKTAILS ---
+            { category: "signature cocktails", name: "Smoky Peach", price: "15€", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { category: "signature cocktails", name: "Malhigo", price: "15€", desc: "Gin Roku, Granadina Artesana, Zumo de Limón.", mood: "Signature", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
+            { category: "signature cocktails", name: "O’ Deus", price: "16€", desc: "Mezcal Rey Campero, Tequila 8, Falernum, Agave.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
 
-            // --- IBA ---
-            { category: "iba cocktails", name: "Paloma", price: "13€", desc: "Tequila 8 blanco, lima, pomelo.", mood: "IBA" },
+            // --- IBA COCKTAILS ---
+            { category: "iba cocktails", name: "Vieux Carré", price: "13€", desc: "Rye Whiskey, Cognac, Vermouth rojo, Benedictine.", mood: "IBA" },
+            { category: "iba cocktails", name: "Paloma", price: "13€", desc: "Tequila 8 blanco, zumo de lima, soda, pomelo.", mood: "IBA" },
+            { category: "iba cocktails", name: "Espresso Martini", price: "12€", desc: "Vodka, Licor de Caffè Artesano, espresso.", mood: "IBA" },
 
-            // --- MACALLAN ---
-            { category: "the macallan", name: "Macallan 18 Sherry Oak", price: "33€ / 66€", desc: "Single Malt de prestigio.", mood: "30ml / 60ml" }
+            // --- THE MACALLAN ---
+            { category: "the macallan", name: "Macallan 12 Double Cask", price: "14€", desc: "40° Single Malt (60ml)", mood: "Whisky" },
+            { category: "the macallan", name: "Macallan 18 Sherry Oak", price: "66€", desc: "43° Single Malt (60ml)", mood: "Whisky" },
+            { category: "the macallan", name: "Macallan 25 Sherry Oak", price: "490€", desc: "43° Single Malt (60ml)", mood: "Whisky" },
+
+            // --- LICORES ---
+            { category: "licores", name: "Few Rye", price: "9,5€", desc: "46.5° - 60ml", mood: "Whisky" },
+            { category: "licores", name: "Hibiki Harmony", price: "14,5€", desc: "43° - 60ml", mood: "Whisky Japonés" },
+            { category: "licores", name: "Tequila 8 Plata", price: "8,5€", desc: "40° - 60ml", mood: "Tequila" },
+            { category: "licores", name: "Clase Azul Reposado", price: "40€", desc: "40° - 60ml", mood: "Tequila Premium" },
+            { category: "licores", name: "Rey Campero Coyote", price: "18€", desc: "49.8° - 60ml", mood: "Mezcal" }
         ];
 
         function renderMenu(filter = 'all') {
@@ -202,7 +229,7 @@
                         <button class="view-btn" onclick="toggleAR(${index})">EXPERIENCE IN 3D</button>
                         <div class="ar-wrapper" id="ar-${index}">
                             <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1">
-                                <button slot="ar-button" class="ar-trigger">✨ VIEW IN SPACE</button>
+                                <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
                             </model-viewer>
                         </div>
                     ` : ''}
@@ -212,12 +239,10 @@
         }
 
         function filterMenu(category, btn) {
-            // Update buttons
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // Render
             renderMenu(category);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleAR(index) {
@@ -235,7 +260,6 @@
             }
         }
 
-        // Initial Load
         renderMenu('all');
     </script>
 </body>
