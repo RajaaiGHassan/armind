@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sway Soul | Digital Menu</title>
-    <!-- Model Viewer for AR -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     
     <style>
@@ -29,106 +28,100 @@
 
         header {
             text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(to bottom, #1a1a1a, var(--dark-bg));
+            padding: 40px 20px 20px 20px;
         }
 
         header h1 { 
-            font-size: 2.5rem; 
-            letter-spacing: 0.4em; 
+            font-size: 2.2rem; 
+            letter-spacing: 0.3em; 
             margin: 0;
             background: linear-gradient(to right, #fff, var(--amber), #fff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Category Navigation */
-        .categories {
+        /* Fixed Category Bar */
+        .category-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(12, 12, 12, 0.95);
             display: flex;
             overflow-x: auto;
-            white-space: nowrap;
-            padding: 10px 20px;
-            gap: 15px;
-            sticky: top;
-            background: var(--dark-bg);
+            padding: 15px;
+            gap: 10px;
             border-bottom: 1px solid #222;
+            scrollbar-width: none; /* Firefox */
         }
+
+        .category-nav::-webkit-scrollbar { display: none; }
 
         .cat-btn {
             background: transparent;
             color: var(--text-gray);
             border: 1px solid #333;
-            padding: 8px 18px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            white-space: nowrap;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
             transition: 0.3s;
+            text-transform: uppercase;
         }
 
         .cat-btn.active {
             border-color: var(--amber);
             color: var(--amber);
+            background: rgba(212, 175, 55, 0.1);
         }
 
         .menu-container { 
             max-width: 600px; 
             margin: 20px auto; 
-            padding: 0 15px;
-            padding-bottom: 100px;
+            padding: 0 15px 100px 15px;
         }
 
-        /* Menu Item Styling */
         .menu-item { 
             background: var(--card-bg); 
-            margin-bottom: 20px; 
-            padding: 25px;
+            margin-bottom: 15px; 
+            padding: 20px;
             border: 1px solid #1e1e1e;
-            transition: transform 0.2s;
+            animation: fadeIn 0.4s ease forwards;
         }
 
-        .category-title {
-            color: var(--amber);
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            margin: 40px 0 20px 0;
-            border-bottom: 1px solid var(--amber);
-            display: inline-block;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .flex-row { display: flex; justify-content: space-between; align-items: baseline; }
-        .item-name { font-size: 1.1rem; color: #fff; margin: 0; padding-right: 10px; }
-        .price { font-weight: bold; color: var(--amber); font-size: 0.9rem; }
-        .description { color: var(--text-gray); font-size: 0.8rem; margin: 10px 0; }
-        .mood { font-size: 0.7rem; color: #666; font-style: italic; }
+        .item-name { font-size: 1rem; color: #fff; margin: 0; }
+        .price { color: var(--amber); font-weight: bold; font-size: 0.9rem; }
+        .description { color: var(--text-gray); font-size: 0.8rem; margin: 8px 0; font-family: sans-serif; }
+        .mood { font-size: 0.7rem; color: #666; font-style: italic; display: block; margin-top: 5px; }
 
-        /* AR Experience Button */
         .view-btn {
             background: transparent;
             color: var(--amber);
             border: 1px solid var(--amber);
-            padding: 10px 20px;
+            padding: 10px;
             width: 100%;
             cursor: pointer;
             font-size: 0.7rem;
             font-weight: bold;
             margin-top: 15px;
             letter-spacing: 2px;
-            transition: 0.3s;
         }
 
-        .view-btn.active {
-            background: var(--amber);
-            color: #000;
-        }
+        .view-btn.active { background: var(--amber); color: #000; }
 
-        /* AR/3D Wrapper */
         .ar-wrapper {
             display: none;
-            margin-top: 20px;
-            height: 350px;
+            margin-top: 15px;
+            height: 300px;
             background: #000;
             position: relative;
-            border: 1px dashed var(--amber);
+            border: 1px solid #333;
         }
 
         model-viewer { width: 100%; height: 100%; }
@@ -136,19 +129,14 @@
         .ar-trigger {
             background: #fff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 8px 16px;
             position: absolute;
-            bottom: 15px;
+            bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
             font-weight: bold;
-            color: #000;
             font-size: 0.7rem;
         }
-
-        /* Scrollbar hide */
-        .categories::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
@@ -157,41 +145,52 @@
         <h1>SWAY SOUL</h1>
     </header>
 
-    <div class="menu-container" id="menu-list">
-        <!-- Items will be injected here by JS -->
+    <div class="category-nav" id="cat-nav">
+        <button class="cat-btn active" onclick="filterMenu('all', this)">ALL</button>
+        <button class="cat-btn" onclick="filterMenu('menú a la carta', this)">A LA CARTA</button>
+        <button class="cat-btn" onclick="filterMenu('padellino gourmet', this)">PADELLINO</button>
+        <button class="cat-btn" onclick="filterMenu('tablas', this)">TABLAS</button>
+        <button class="cat-btn" onclick="filterMenu('signature cocktails', this)">SIGNATURE</button>
+        <button class="cat-btn" onclick="filterMenu('iba cocktails', this)">IBA</button>
+        <button class="cat-btn" onclick="filterMenu('the macallan', this)">MACALLAN</button>
+        <button class="cat-btn" onclick="filterMenu('licores', this)">LICORES</button>
     </div>
+
+    <div class="menu-container" id="menu-list"></div>
 
     <script>
         const menuData = [
-            { category: "PADELLINO GOURMET", name: "Mortazza", price: "15€ / 25€", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Vinagre Balsámico.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "PADELLINO GOURMET", name: "Calabro", price: "15€ / 25€", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola DOP.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "TABLAS", name: "Tabla Mixta", price: "25€", desc: "Mortadella DOP, Coppa, Speck DOP, Prosciutto 18M, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
-            { category: "SIGNATURE COCKTAILS", name: "Smoky Peach", price: "15€", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre, Limón.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "SIGNATURE COCKTAILS", name: "Malhigo", price: "15€", desc: "Gin Roku, Granadina Artesana, Zumo de Limón, Sal.", mood: "Signature", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
-            { category: "MENÚ A LA CARTA", name: "Fettucine al Huevo", price: "15€", desc: "Con Mantequilla, Anchoas y Limón.", mood: "Primer Plato" },
-            { category: "MENÚ A LA CARTA", name: "Tiramisù de las Abuelas", price: "8€", desc: "Servido con Licor de Café Artesano.", mood: "Dulce" },
-            { category: "IBA COCKTAILS", name: "Paloma", price: "13€", desc: "Tequila 8 blanco, zumo de lima, soda, pomelo.", mood: "IBA" },
-            { category: "THE MACALLAN", name: "Macallan 18 Sherry Oak", price: "33€ / 66€", desc: "43° Single Malt", mood: "30ml / 60ml" }
+            // --- PADELLINO GOURMET ---
+            { category: "padellino gourmet", name: "Mortazza", price: "15€ / 25€", desc: "Mortadella DOP, Pistaccio, Rucola, Limón.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { category: "padellino gourmet", name: "Calabro", price: "15€ / 25€", desc: "Spianata Calabra, Rucola, Crema N’Duja.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            
+            // --- TABLAS ---
+            { category: "tablas", name: "Tabla Mixta", price: "25€", desc: "Embutidos y quesos premium.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            
+            // --- SIGNATURE ---
+            { category: "signature cocktails", name: "Malhigo", price: "15€", desc: "Gin Roku, Granadina Artesana, Limón.", mood: "Signature", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
+            { category: "signature cocktails", name: "Smoky Peach", price: "15€", desc: "Laphroaig 10, Melocotón, Jengibre.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+
+            // --- A LA CARTA ---
+            { category: "menú a la carta", name: "Fettucine al Huevo", price: "15€", desc: "Mantequilla, Anchoas y Limón.", mood: "Primer Plato" },
+            { category: "menú a la carta", name: "Tiramisù", price: "8€", desc: "Receta tradicional de la abuela.", mood: "Postre" },
+
+            // --- IBA ---
+            { category: "iba cocktails", name: "Paloma", price: "13€", desc: "Tequila 8 blanco, lima, pomelo.", mood: "IBA" },
+
+            // --- MACALLAN ---
+            { category: "the macallan", name: "Macallan 18 Sherry Oak", price: "33€ / 66€", desc: "Single Malt de prestigio.", mood: "30ml / 60ml" }
         ];
 
-        const menuList = document.getElementById('menu-list');
+        function renderMenu(filter = 'all') {
+            const menuList = document.getElementById('menu-list');
+            menuList.innerHTML = '';
 
-        function renderMenu() {
-            let currentCat = "";
-            
-            menuData.forEach((item, index) => {
-                if (item.category !== currentCat) {
-                    currentCat = item.category;
-                    const catTitle = document.createElement('h2');
-                    catTitle.className = 'category-title';
-                    catTitle.innerText = currentCat;
-                    menuList.appendChild(catTitle);
-                }
+            const filtered = filter === 'all' ? menuData : menuData.filter(item => item.category === filter);
 
+            filtered.forEach((item, index) => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
-                itemDiv.id = `item-${index}`;
-                
                 itemDiv.innerHTML = `
                     <div class="flex-row">
                         <h3 class="item-name">${item.name}</h3>
@@ -200,13 +199,10 @@
                     <p class="description">${item.desc}</p>
                     <span class="mood">${item.mood}</span>
                     ${item.glb ? `
-                        <button class="view-btn" onclick="toggleAR('item-${index}')">EXPERIENCE IN 3D</button>
-                        <div class="ar-wrapper">
-                            <model-viewer 
-                                src="${item.glb}" 
-                                ar ar-modes="webxr scene-viewer quick-look" 
-                                camera-controls shadow-intensity="1">
-                                <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
+                        <button class="view-btn" onclick="toggleAR(${index})">EXPERIENCE IN 3D</button>
+                        <div class="ar-wrapper" id="ar-${index}">
+                            <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1">
+                                <button slot="ar-button" class="ar-trigger">✨ VIEW IN SPACE</button>
                             </model-viewer>
                         </div>
                     ` : ''}
@@ -215,10 +211,18 @@
             });
         }
 
-        function toggleAR(id) {
-            const container = document.getElementById(id);
-            const wrapper = container.querySelector('.ar-wrapper');
-            const btn = container.querySelector('.view-btn');
+        function filterMenu(category, btn) {
+            // Update buttons
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Render
+            renderMenu(category);
+        }
+
+        function toggleAR(index) {
+            const wrapper = document.getElementById(`ar-${index}`);
+            const btn = wrapper.previousElementSibling;
             
             if (wrapper.style.display === "block") {
                 wrapper.style.display = "none";
@@ -226,12 +230,13 @@
                 btn.classList.remove('active');
             } else {
                 wrapper.style.display = "block";
-                btn.innerText = "CLOSE EXPERIENCE";
+                btn.innerText = "CLOSE 3D";
                 btn.classList.add('active');
             }
         }
 
-        renderMenu();
+        // Initial Load
+        renderMenu('all');
     </script>
 </body>
 </html>
