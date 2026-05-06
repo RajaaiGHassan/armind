@@ -1,27 +1,63 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Updated to stable versions -->
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
-  </head>
-  <body>
-    <!-- The Scanning Overlay -->
-    <div id="example-scanning-overlay" style="display: none;"></div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Zero Menu</title>
+    <!-- The AR engine -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
+        .menu-item { border-bottom: 1px solid #333; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        .drink-info h2 { margin: 0; color: #f1c40f; }
+        .drink-info p { margin: 5px 0; color: #888; }
+        .ar-btn { background: #f1c40f; color: #000; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        
+        /* The 3D Viewer - Hidden by default */
+        model-viewer { width: 100%; height: 300px; display: none; margin-top: 10px; }
+        .show-ar model-viewer { display: block; }
+    </style>
+</head>
+<body>
 
-    <a-scene 
-      mindar-image="imageTargetSrc: ./targets.mind; uiLoading: yes; uiScanning: yes;" 
-      color-space="sRGB" 
-      renderer="colorManagement: true, physicallyCorrectLights" 
-      vr-mode-ui="enabled: false" 
-      device-orientation-permission-ui="enabled: false">
-      
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <h1>🍸 Signature Cocktails</h1>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane color="blue" opacity="0.7" position="0 0 0" height="1" width="1" side="double"></a-plane>
-      </a-entity>
-    </a-scene>
-  </body>
+    <!-- Drink 1 -->
+    <div class="menu-item" id="drink1">
+        <div class="drink-info">
+            <h2>Old Fashioned</h2>
+            <p>Bourbon, Bitters, Orange Peel</p>
+            <p><strong>$14.00</strong></p>
+        </div>
+        <button class="ar-btn" onclick="toggleAR('drink1')">SEE IN AR</button>
+        <!-- Replace the 'src' with your actual .glb file link later -->
+        <model-viewer 
+            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+            ar ar-modes="webxr scene-viewer quick-look" 
+            camera-controls shadow-intensity="1">
+        </model-viewer>
+    </div>
+
+    <!-- Drink 2 -->
+    <div class="menu-item" id="drink2">
+        <div class="drink-info">
+            <h2>Negroni</h2>
+            <p>Gin, Campari, Sweet Vermouth</p>
+            <p><strong>$12.00</strong></p>
+        </div>
+        <button class="ar-btn" onclick="toggleAR('drink2')">SEE IN AR</button>
+        <model-viewer 
+            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+            ar ar-modes="webxr scene-viewer quick-look" 
+            camera-controls shadow-intensity="1">
+        </model-viewer>
+    </div>
+
+    <script>
+        function toggleAR(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('show-ar');
+        }
+    </script>
+</body>
 </html>
