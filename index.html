@@ -41,12 +41,11 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Fixed Category Bar */
         .category-nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(12, 12, 12, 0.9);
+            background: rgba(12, 12, 12, 0.95);
             backdrop-filter: blur(10px);
             display: flex;
             overflow-x: auto;
@@ -121,7 +120,7 @@
         .ar-wrapper {
             display: none;
             margin-top: 15px;
-            height: 300px;
+            height: 350px;
             background: #000;
             position: relative;
             border: 1px solid #333;
@@ -134,13 +133,14 @@
             border: none;
             padding: 8px 16px;
             position: absolute;
-            bottom: 10px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             font-weight: bold;
             font-size: 0.7rem;
             color: #000;
             border-radius: 2px;
+            z-index: 10;
         }
     </style>
 </head>
@@ -166,47 +166,92 @@
     <script>
         const menuData = [
             // --- MENÚ A LA CARTA ---
-            { category: "menú a la carta", name: "Hummus de Garbanzos", price: "8,5€", desc: "Artesano con Focaccia artesana.", mood: "Entrante" },
-            { category: "menú a la carta", name: "Bresaola & Parmigiano", price: "9,5€", desc: "Rúcola, Parmigiano y Limón con Focaccia.", mood: "Entrante" },
-            { category: "menú a la carta", name: "Pan de Cristal", price: "5,5€", desc: "Con Tomate y Aceite EVO.", mood: "Entrante" },
-            { category: "menú a la carta", name: "Parmigiana de Berenjena", price: "11€", desc: "Focaccia, Aceite EVO y Flor de Sal.", mood: "Entrante" },
-            { category: "menú a la carta", name: "Fettucine Anchoas", price: "15€", desc: "Mantequilla, Anchoas y Limón.", mood: "Pasta" },
-            { category: "menú a la carta", name: "Paccheri Gorgonzola", price: "15€", desc: "Crema de Rúcola Artesana y Gorgonzola.", mood: "Pasta" },
-            { category: "menú a la carta", name: "Fettucine Speck", price: "15€", desc: "Speck, Gorgonzola y Crema de Nueces.", mood: "Pasta" },
-            { category: "menú a la carta", name: "Paccheri Pesto", price: "15€", desc: "Con Pesto de Albahaca Artesano.", mood: "Pasta" },
-            { category: "menú a la carta", name: "Tiramisù", price: "8€", desc: "Servido con Licor de Café Artesano.", mood: "Dulce" },
+            { id: 1, name: "Hummus de Garbanzos Artesano", price: "8,5€", category: "menú a la carta", desc: "Con Focaccia artesana.", mood: "Entrante" },
+            { id: 2, name: "Bresaola, Rúcola, Parmigiano y Limón", price: "9,5€", category: "menú a la carta", desc: "Con Focaccia.", mood: "Entrante" },
+            { id: 3, name: "Pan de Cristal con Tomate", price: "5,5€", category: "menú a la carta", desc: "Aceite EVO.", mood: "Entrante" },
+            { id: 4, name: "Parmigiana de Berenjena", price: "11€", category: "menú a la carta", desc: "Con Focaccia, Aceite EVO y Flor de Sal.", mood: "Entrante" },
+            { id: 5, name: "Fettucine al Huevo", price: "15€", category: "menú a la carta", desc: "Con Mantequilla, Anchoas y Limón.", mood: "Primer Plato" },
+            { id: 6, name: "Paccheri al Huevo", price: "15€", category: "menú a la carta", desc: "Con Crema de Rúcola Artesana y Gorgonzola.", mood: "Primer Plato" },
+            { id: 7, name: "Fettucine al Huevo (Parmigiano)", price: "16€", category: "menú a la carta", desc: "Con Mantequilla, Parmigiano y Limón.", mood: "Primer Plato" },
+            { id: 8, name: "Fettucine al Huevo (Speck)", price: "15€", category: "menú a la carta", desc: "Con Speck, Gorgonzola y Crema de Nueces.", mood: "Primer Plato" },
+            { id: 9, name: "Fettucine al Huevo (Ajo)", price: "15€", category: "menú a la carta", desc: "Con Ajo, Aceite EVO y Guindilla.", mood: "Primer Plato" },
+            { id: 10, name: "Paccheri al Huevo (Tomate)", price: "14€", category: "menú a la carta", desc: "Con Tomate Seco, Alcaparras y Limón.", mood: "Primer Plato" },
+            { id: 11, name: "Paccheri al Huevo (Pesto)", price: "15€", category: "menú a la carta", desc: "Con Pesto de Albahaca Artesano.", mood: "Primer Plato" },
+            { id: 12, name: "Paccheri al Huevo (N’duja)", price: "15€", category: "menú a la carta", desc: "Con Crema de N’duja y Vino Tinto.", mood: "Primer Plato" },
+            { id: 13, name: "Tiramisù de las Abuelas", price: "8€", category: "menú a la carta", desc: "Servido con Licor de Café Artesano.", mood: "Dulce" },
+            { id: 14, name: "Sorbete de Limón y Albahaca", price: "8€", category: "menú a la carta", desc: "Hecho en casa, servido con Limoncello Artesano.", mood: "Dulce" },
 
-            // --- PADELLINO GOURMET ---
-            { category: "padellino gourmet", name: "Mortazza", price: "15€ / 25€", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Balsámico.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "padellino gourmet", name: "Calabro", price: "15€ / 25€", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "padellino gourmet", name: "Montanaro", price: "15€ / 25€", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "padellino gourmet", name: "Parma – Reggio", price: "15€ / 25€", desc: "Prosciutto di Parma 18m, Parmigiano, Tomate y Rucola.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            // --- PADELLINO GOURMET (AR ENABLED) ---
+            { id: 15, name: "Mortazza", price: "15€ / 25€", category: "padellino gourmet", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Vinagre Balsámico.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 16, name: "Calabro", price: "15€ / 25€", category: "padellino gourmet", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola DOP.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 17, name: "Montanaro", price: "15€ / 25€", category: "padellino gourmet", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 18, name: "A Copa", price: "15€ / 25€", category: "padellino gourmet", desc: "Coppa Stagionata, Rucola, Pecorino Sardo DOP y Miel Mil Flores.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 19, name: "Parma – Reggio", price: "15€ / 25€", category: "padellino gourmet", desc: "Prosciutto di Parma 18 meses, Parmigiano Reggiano 18 meses.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 20, name: "F4 Formaggi", price: "15€ / 25€", category: "padellino gourmet", desc: "Rucola, Gorgonzola DOP, Brie, Parmigiano y Pecorino.", mood: "300g / 600g", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
 
-            // --- TABLAS ---
-            { category: "tablas", name: "Tabla Mixta", price: "25€", desc: "Mortadella, Coppa, Speck, Prosciutto, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
-            { category: "tablas", name: "Tabla de Queso", price: "17€", desc: "Parmigiano 18M, Brie, Gorgonzola DOP, Pecorino y Mermelada.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            // --- TABLAS (AR ENABLED) ---
+            { id: 21, name: "Tabla Mixta", price: "25€", category: "tablas", desc: "Mortadella DOP, Coppa, Speck DOP, Prosciutto 18M, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            { id: 22, name: "Tabla de Queso", price: "17€", category: "tablas", desc: "Parmigiano 18M, Brie, Gorgonzola DOP, Pecorino Sardo y Mermelada.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            { id: 23, name: "Tabla de Embutidos", price: "17€", category: "tablas", desc: "Mortadella DOP, Coppa Stagionata, Speck DOP, Prosciutto 18M, Spianata Calabra.", mood: "Gourmet", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
 
-            // --- SIGNATURE COCKTAILS ---
-            { category: "signature cocktails", name: "Smoky Peach", price: "15€", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { category: "signature cocktails", name: "Malhigo", price: "15€", desc: "Gin Roku, Granadina Artesana, Zumo de Limón.", mood: "Signature", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
-            { category: "signature cocktails", name: "O’ Deus", price: "16€", desc: "Mezcal Rey Campero, Tequila 8, Falernum, Agave.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            // --- SIGNATURE COCKTAILS (AR ENABLED) ---
+            { id: 24, name: "Smoky Peach", price: "15€", category: "signature cocktails", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre, Limón.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 25, name: "Malhigo", price: "15€", category: "signature cocktails", desc: "Gin Roku, Granadina Artesana, Zumo de Limón, Sal.", mood: "Signature", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
+            { id: 26, name: "Bombastic", price: "14€", category: "signature cocktails", desc: "Hibiki Harmony, Orange & Chocolate Bitter, Agave.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 27, name: "Shrub Barrel", price: "12€", category: "signature cocktails", desc: "Whiskey Maker’s Mark, Shrub de Manzana, Zumo de Limón.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 28, name: "Smoky Garden", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Chartreuse Verde, Cordial de Lima.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 29, name: "O’ Deus", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Tequila 8, Falernum, Limón, Agave.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 30, name: "Teka", price: "16€", category: "signature cocktails", desc: "Vodka Haku, Falernum Artesano, Tepache, Limón, Angostura.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 31, name: "Plaquiri", price: "16€", category: "signature cocktails", desc: "Ron Blanco Santiago de Cuba, Cordial de Plátano Artesano, Limón.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 32, name: "Honey Fizz", price: "16€", category: "signature cocktails", desc: "Ron 8 años Santiago de Cuba, Honey mix Pera Artesano, Lima.", mood: "Signature", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
 
             // --- IBA COCKTAILS ---
-            { category: "iba cocktails", name: "Vieux Carré", price: "13€", desc: "Rye Whiskey, Cognac, Vermouth rojo, Benedictine.", mood: "IBA" },
-            { category: "iba cocktails", name: "Paloma", price: "13€", desc: "Tequila 8 blanco, zumo de lima, soda, pomelo.", mood: "IBA" },
-            { category: "iba cocktails", name: "Espresso Martini", price: "12€", desc: "Vodka, Licor de Caffè Artesano, espresso.", mood: "IBA" },
+            { id: 40, name: "Vieux Carré", price: "13€", category: "iba cocktails", desc: "Few Rye Whiskey, Cognac, Vermouth rojo, Benedictine.", mood: "IBA" },
+            { id: 41, name: "Illegal", price: "12€", category: "iba cocktails", desc: "Pisco Demonio de los Andes, sirope de azúcar, zumo de lima.", mood: "IBA" },
+            { id: 42, name: "Paloma", price: "13€", category: "iba cocktails", desc: "Tequila 8 blanco, zumo de lima, soda, pomelo.", mood: "IBA" },
+            { id: 43, name: "Last Word", price: "14€", category: "iba cocktails", desc: "Roku Gin, green chartreuse, Maraschino, zumo de lima.", mood: "IBA" },
+            { id: 44, name: "Espresso Martini", price: "12€", category: "iba cocktails", desc: "Vodka Koskenkorva, Licor de Caffè Artesano, espresso.", mood: "IBA" },
+            { id: 45, name: "Old Fashioned", price: "12€", category: "iba cocktails", desc: "Maker’s Mark, sirope de azúcar, angostura.", mood: "IBA" },
+            { id: 46, name: "Margarita", price: "14€", category: "iba cocktails", desc: "Tequila 8, triple sec, zumo de lima.", mood: "IBA" },
 
             // --- THE MACALLAN ---
-            { category: "the macallan", name: "Macallan 12 Double Cask", price: "14€", desc: "40° Single Malt (60ml)", mood: "Whisky" },
-            { category: "the macallan", name: "Macallan 18 Sherry Oak", price: "66€", desc: "43° Single Malt (60ml)", mood: "Whisky" },
-            { category: "the macallan", name: "Macallan 25 Sherry Oak", price: "490€", desc: "43° Single Malt (60ml)", mood: "Whisky" },
+            { id: 100, name: "Macallan 12 Double Cask", price: "7€ / 14€", category: "the macallan", desc: "40° Single Malt", mood: "30ml / 60ml" },
+            { id: 101, name: "Macallan 15 Double Cask", price: "16,5€ / 33€", category: "the macallan", desc: "43° Single Malt", mood: "30ml / 60ml" },
+            { id: 102, name: "Macallan 18 Double Cask", price: "13€ / 32€ / 64€", category: "the macallan", desc: "43° Single Malt", mood: "10ml / 30ml / 60ml" },
+            { id: 103, name: "Macallan 12 Sherry Oak", price: "8€ / 16€", category: "the macallan", desc: "40° Single Malt", mood: "30ml / 60ml" },
+            { id: 104, name: "Macallan 18 Sherry Oak", price: "14€ / 33€ / 66€", category: "the macallan", desc: "43° Single Malt", mood: "10ml / 30ml / 60ml" },
+            { id: 105, name: "Macallan 25 Sherry Oak", price: "90€ / 250€ / 490€", category: "the macallan", desc: "43° Single Malt", mood: "10ml / 30ml / 60ml" },
 
             // --- LICORES ---
-            { category: "licores", name: "Few Rye", price: "9,5€", desc: "46.5° - 60ml", mood: "Whisky" },
-            { category: "licores", name: "Hibiki Harmony", price: "14,5€", desc: "43° - 60ml", mood: "Whisky Japonés" },
-            { category: "licores", name: "Tequila 8 Plata", price: "8,5€", desc: "40° - 60ml", mood: "Tequila" },
-            { category: "licores", name: "Clase Azul Reposado", price: "40€", desc: "40° - 60ml", mood: "Tequila Premium" },
-            { category: "licores", name: "Rey Campero Coyote", price: "18€", desc: "49.8° - 60ml", mood: "Mezcal" }
+            { id: 200, name: "Few Rye", price: "9,5€", category: "licores", desc: "46.5°", mood: "Whisky 60ml" },
+            { id: 201, name: "Few Bourbon", price: "9€", category: "licores", desc: "46.5°", mood: "Whisky 60ml" },
+            { id: 202, name: "Wild Turkey 84", price: "4€", category: "licores", desc: "40.5°", mood: "Whisky 60ml" },
+            { id: 203, name: "Wild Turkey 101", price: "8,5€", category: "licores", desc: "50.5°", mood: "Whisky 60ml" },
+            { id: 204, name: "Mitcher’s Rye", price: "12€", category: "licores", desc: "42.4°", mood: "Whisky 60ml" },
+            { id: 205, name: "Mitcher’s Bourbon", price: "12€", category: "licores", desc: "45.7°", mood: "Whisky 60ml" },
+            { id: 206, name: "Templeton 4 Y.O.", price: "6€", category: "licores", desc: "40°", mood: "Whisky 60ml" },
+            { id: 207, name: "Templeton 6 Y.O.", price: "7€", category: "licores", desc: "45.75°", mood: "Whisky 60ml" },
+            { id: 208, name: "Maker’s Mark", price: "6€", category: "licores", desc: "45°", mood: "Whisky 60ml" },
+            { id: 209, name: "Toki", price: "5,5€", category: "licores", desc: "43°", mood: "Whisky 60ml" },
+            { id: 210, name: "Hibiki Harmony", price: "14,5€", category: "licores", desc: "43°", mood: "Whisky 60ml" },
+            { id: 211, name: "Laphroaig 10 Y.O.", price: "8€", category: "licores", desc: "40°", mood: "Whisky 60ml" },
+            { id: 212, name: "Laphroaig Quarter Cask", price: "10€", category: "licores", desc: "48°", mood: "Whisky 60ml" },
+            { id: 213, name: "Jameson Select Black", price: "7€", category: "licores", desc: "40°", mood: "Whisky 60ml" },
+            { id: 214, name: "Ardbeg 10 Y.O.", price: "13€", category: "licores", desc: "46°", mood: "Whisky 60ml" },
+            { id: 300, name: "Tequila 8 Plata", price: "8,5€", category: "licores", desc: "40°", mood: "Tequila 60ml" },
+            { id: 301, name: "Tequila 8 Reposado", price: "9€", category: "licores", desc: "40°", mood: "Tequila 60ml" },
+            { id: 302, name: "Don Julio Blanco", price: "9,5€", category: "licores", desc: "38°", mood: "Tequila 60ml" },
+            { id: 303, name: "Fortaleza Añejo", price: "15€", category: "licores", desc: "40°", mood: "Tequila 60ml" },
+            { id: 304, name: "Fortaleza Blanco", price: "9,5€", category: "licores", desc: "40°", mood: "Tequila 60ml" },
+            { id: 305, name: "Clase Azul Plata", price: "22€", category: "licores", desc: "40°", mood: "Tequila 60ml" },
+            { id: 306, name: "Clase Azul Reposado", price: "40€", category: "licores", desc: "40°", mood: "Tequila 60ml" },
+            { id: 400, name: "Ojo de Dios Blanco", price: "9,5€", category: "licores", desc: "42°", mood: "Mezcal 60ml" },
+            { id: 401, name: "Ojo de Dios Café", price: "9,5€", category: "licores", desc: "35°", mood: "Mezcal 60ml" },
+            { id: 402, name: "Siete Misterios Doba Yej", price: "9€", category: "licores", desc: "44°", mood: "Mezcal 60ml" },
+            { id: 403, name: "Rey Campero Espadín", price: "8,5€", category: "licores", desc: "47.1°", mood: "Mezcal 60ml" },
+            { id: 404, name: "Rey Campero Mexicano", price: "14€", category: "licores", desc: "48.5°", mood: "Mezcal 60ml" },
+            { id: 405, name: "Rey Campero Sierra Negra", price: "18€", category: "licores", desc: "49.2°", mood: "Mezcal 60ml" },
+            { id: 406, name: "Rey Campero Coyote", price: "18€", category: "licores", desc: "49.8°", mood: "Mezcal 60ml" }
         ];
 
         function renderMenu(filter = 'all') {
@@ -215,7 +260,7 @@
 
             const filtered = filter === 'all' ? menuData : menuData.filter(item => item.category === filter);
 
-            filtered.forEach((item, index) => {
+            filtered.forEach((item) => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
                 itemDiv.innerHTML = `
@@ -226,8 +271,8 @@
                     <p class="description">${item.desc}</p>
                     <span class="mood">${item.mood}</span>
                     ${item.glb ? `
-                        <button class="view-btn" onclick="toggleAR(${index})">EXPERIENCE IN 3D</button>
-                        <div class="ar-wrapper" id="ar-${index}">
+                        <button class="view-btn" onclick="toggleAR('ar-${item.id}', this)">EXPERIENCE IN 3D</button>
+                        <div class="ar-wrapper" id="ar-${item.id}">
                             <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1">
                                 <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
                             </model-viewer>
@@ -245,10 +290,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function toggleAR(index) {
-            const wrapper = document.getElementById(`ar-${index}`);
-            const btn = wrapper.previousElementSibling;
-            
+        function toggleAR(id, btn) {
+            const wrapper = document.getElementById(id);
             if (wrapper.style.display === "block") {
                 wrapper.style.display = "none";
                 btn.innerText = "EXPERIENCE IN 3D";
