@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Bar AR Menu</title>
-    <!-- The AR Engine (Google Model Viewer) -->
+    <title>Elite Bar Menu</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     
     <style>
@@ -17,135 +16,134 @@
         body { 
             background: var(--dark-bg); 
             color: #fff; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             margin: 0; 
             padding: 20px;
-            line-height: 1.6;
         }
 
-        h1 { 
-            text-align: center; 
-            color: var(--gold); 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 20px;
-        }
+        h1 { text-align: center; color: var(--gold); letter-spacing: 2px; margin-bottom: 30px; }
 
-        .menu-container { max-width: 600px; margin: 0 auto; }
+        .menu-container { max-width: 500px; margin: 0 auto; }
 
         .menu-item { 
             background: var(--card-bg); 
-            border-radius: 15px; 
-            margin-bottom: 25px; 
-            overflow: hidden;
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            padding: 20px;
             border: 1px solid #222;
         }
 
-        .drink-details { padding: 20px; }
+        .flex-row { display: flex; justify-content: space-between; align-items: flex-start; }
+        .drink-name { font-size: 1.2rem; color: var(--gold); margin: 0; }
+        .price { font-weight: bold; color: #fff; }
+        .description { color: #888; font-size: 0.9rem; margin: 10px 0; }
 
-        .flex-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: baseline; 
+        /* The Toggle Button */
+        .view-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
-        .drink-name { font-size: 1.4rem; color: var(--gold); margin: 0; }
-        .price { font-weight: bold; font-size: 1.2rem; }
-        .description { color: #888; margin: 10px 0 20px 0; font-size: 0.9rem; }
-
-        /* AR Viewer Styling */
-        model-viewer {
-            width: 100%;
-            height: 350px;
-            background-color: #111;
-            --poster-color: transparent;
+        .view-btn.active {
+            background: var(--gold);
+            color: #000;
         }
 
-        /* The Custom AR Button */
-        .ar-button {
-            background-color: var(--gold);
-            border-radius: 30px;
+        /* The AR/3D Container - HIDDEN BY DEFAULT */
+        .ar-wrapper {
+            display: none;
+            margin-top: 15px;
+            height: 300px;
+            background: #111;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        model-viewer { width: 100%; height: 100%; }
+
+        /* The actual AR trigger button inside the viewer */
+        .ar-trigger {
+            background: var(--gold);
             border: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
             font-weight: bold;
             color: #000;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
-        }
-
-        .ar-button:active { transform: scale(0.95); }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            padding-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
     <div class="menu-container">
-        <h1>🍸 Signature Drinks</h1>
+        <h1>🍸 BAR MENU</h1>
 
-        <!-- Drink Item 1 -->
-        <div class="menu-item">
-            <model-viewer 
-                src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-                ios-src="" 
-                ar 
-                ar-modes="webxr scene-viewer quick-look" 
-                camera-controls 
-                auto-rotate 
-                shadow-intensity="1"
-                environment-image="neutral"
-                exposure="1.2">
-                
-                <div class="btn-container" slot="ar-button">
-                    <button class="ar-button">
-                        ✨ VIEW IN YOUR SPACE
-                    </button>
-                </div>
-            </model-viewer>
-
-            <div class="drink-details">
-                <div class="flex-header">
-                    <h2 class="drink-name">The Space Gin</h2>
-                    <span class="price">$16</span>
-                </div>
-                <p class="description">Infused with botanical stardust, served chilled with a twist of lemon.</p>
+        <!-- Drink 1 -->
+        <div class="menu-item" id="drink1">
+            <div class="flex-row">
+                <h2 class="drink-name">Old Fashioned</h2>
+                <span class="price">$14</span>
+            </div>
+            <p class="description">Bourbon, sugar, bitters, and a citrus twist.</p>
+            <button class="view-btn" onclick="toggleAR('drink1')">EXPERIENCE IN 3D</button>
+            
+            <div class="ar-wrapper">
+                <model-viewer 
+                    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                    ar ar-modes="webxr scene-viewer quick-look" 
+                    camera-controls shadow-intensity="1">
+                    <button slot="ar-button" class="ar-trigger">👋 VIEW IN YOUR SPACE</button>
+                </model-viewer>
             </div>
         </div>
 
-        <!-- Drink Item 2 -->
-        <div class="menu-item">
-            <model-viewer 
-                src="https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" 
-                ar 
-                ar-modes="webxr scene-viewer quick-look" 
-                camera-controls 
-                auto-rotate 
-                shadow-intensity="1">
-                
-                <div class="btn-container" slot="ar-button">
-                    <button class="ar-button">
-                        ✨ VIEW IN YOUR SPACE
-                    </button>
-                </div>
-            </model-viewer>
-
-            <div class="drink-details">
-                <div class="flex-header">
-                    <h2 class="drink-name">Oak Aged Bourbon</h2>
-                    <span class="price">$14</span>
-                </div>
-                <p class="description">A sophisticated blend aged in vintage oak chairs for that woody finish.</p>
+        <!-- Drink 2 -->
+        <div class="menu-item" id="drink2">
+            <div class="flex-row">
+                <h2 class="drink-name">Espresso Martini</h2>
+                <span class="price">$16</span>
+            </div>
+            <p class="description">Fresh espresso, vodka, and coffee liqueur.</p>
+            <button class="view-btn" onclick="toggleAR('drink2')">EXPERIENCE IN 3D</button>
+            
+            <div class="ar-wrapper">
+                <model-viewer 
+                    src="https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" 
+                    ar ar-modes="webxr scene-viewer quick-look" 
+                    camera-controls shadow-intensity="1">
+                    <button slot="ar-button" class="ar-trigger">👋 VIEW IN YOUR SPACE</button>
+                </model-viewer>
             </div>
         </div>
+
     </div>
 
+    <script>
+        function toggleAR(id) {
+            const container = document.getElementById(id);
+            const wrapper = container.querySelector('.ar-wrapper');
+            const btn = container.querySelector('.view-btn');
+            
+            if (wrapper.style.display === "block") {
+                wrapper.style.display = "none";
+                btn.innerText = "EXPERIENCE IN 3D";
+                btn.classList.remove('active');
+            } else {
+                wrapper.style.display = "block";
+                btn.innerText = "CLOSE 3D";
+                btn.classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
