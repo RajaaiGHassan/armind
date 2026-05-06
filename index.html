@@ -3,62 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bar Digital Menu</title>
+    <title>Elite Bar AR Menu</title>
+    <!-- The AR Engine (Google Model Viewer) -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    
     <style>
-        body { background: #121212; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; }
-        h1 { border-bottom: 2px solid #f1c40f; padding-bottom: 10px; color: #f1c40f; }
-        .menu-item { background: #1e1e1e; margin-bottom: 15px; padding: 15px; border-radius: 12px; transition: 0.3s; }
-        .flex-row { display: flex; justify-content: space-between; align-items: center; }
-        .drink-info h2 { margin: 0; font-size: 1.2rem; }
-        .price { color: #f1c40f; font-weight: bold; }
-        .ar-btn { background: transparent; color: #f1c40f; border: 1px solid #f1c40f; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
-        .ar-btn:hover { background: #f1c40f; color: #000; }
-        
-        /* The AR Container */
-        .ar-container { display: none; margin-top: 15px; border-top: 1px solid #333; padding-top: 15px; }
-        model-viewer { width: 100%; height: 250px; --poster-color: transparent; }
-        .active .ar-container { display: block; }
+        :root {
+            --gold: #f1c40f;
+            --dark-bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+        }
+
+        body { 
+            background: var(--dark-bg); 
+            color: #fff; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1 { 
+            text-align: center; 
+            color: var(--gold); 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .menu-container { max-width: 600px; margin: 0 auto; }
+
+        .menu-item { 
+            background: var(--card-bg); 
+            border-radius: 15px; 
+            margin-bottom: 25px; 
+            overflow: hidden;
+            border: 1px solid #222;
+        }
+
+        .drink-details { padding: 20px; }
+
+        .flex-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: baseline; 
+        }
+
+        .drink-name { font-size: 1.4rem; color: var(--gold); margin: 0; }
+        .price { font-weight: bold; font-size: 1.2rem; }
+        .description { color: #888; margin: 10px 0 20px 0; font-size: 0.9rem; }
+
+        /* AR Viewer Styling */
+        model-viewer {
+            width: 100%;
+            height: 350px;
+            background-color: #111;
+            --poster-color: transparent;
+        }
+
+        /* The Custom AR Button */
+        .ar-button {
+            background-color: var(--gold);
+            border-radius: 30px;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            color: #000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+        }
+
+        .ar-button:active { transform: scale(0.95); }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>🍸 Signature Menu</h1>
+    <div class="menu-container">
+        <h1>🍸 Signature Drinks</h1>
 
-    <!-- Drink Item 1 -->
-    <div class="menu-item" id="item1">
-        <div class="flex-row">
-            <div class="drink-info">
-                <h2>The Classic Astronaut</h2>
-                <p>A space-age classic. Smooth and airy.</p>
+        <!-- Drink Item 1 -->
+        <div class="menu-item">
+            <model-viewer 
+                src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                ios-src="" 
+                ar 
+                ar-modes="webxr scene-viewer quick-look" 
+                camera-controls 
+                auto-rotate 
+                shadow-intensity="1"
+                environment-image="neutral"
+                exposure="1.2">
+                
+                <div class="btn-container" slot="ar-button">
+                    <button class="ar-button">
+                        ✨ VIEW IN YOUR SPACE
+                    </button>
+                </div>
+            </model-viewer>
+
+            <div class="drink-details">
+                <div class="flex-header">
+                    <h2 class="drink-name">The Space Gin</h2>
+                    <span class="price">$16</span>
+                </div>
+                <p class="description">Infused with botanical stardust, served chilled with a twist of lemon.</p>
             </div>
-            <div class="price">$15</div>
         </div>
-        <button class="ar-btn" onclick="toggleItem('item1')">VIEW DRINK</button>
-        <div class="ar-container">
-            <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" auto-rotate></model-viewer>
+
+        <!-- Drink Item 2 -->
+        <div class="menu-item">
+            <model-viewer 
+                src="https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" 
+                ar 
+                ar-modes="webxr scene-viewer quick-look" 
+                camera-controls 
+                auto-rotate 
+                shadow-intensity="1">
+                
+                <div class="btn-container" slot="ar-button">
+                    <button class="ar-button">
+                        ✨ VIEW IN YOUR SPACE
+                    </button>
+                </div>
+            </model-viewer>
+
+            <div class="drink-details">
+                <div class="flex-header">
+                    <h2 class="drink-name">Oak Aged Bourbon</h2>
+                    <span class="price">$14</span>
+                </div>
+                <p class="description">A sophisticated blend aged in vintage oak chairs for that woody finish.</p>
+            </div>
         </div>
     </div>
 
-    <!-- Drink Item 2 -->
-    <div class="menu-item" id="item2">
-        <div class="flex-row">
-            <div class="drink-info">
-                <h2>The Retro Chair</h2>
-                <p>Wood-aged and sophisticated.</p>
-            </div>
-            <div class="price">$12</div>
-        </div>
-        <button class="ar-btn" onclick="toggleItem('item2')">VIEW DRINK</button>
-        <div class="ar-container">
-            <model-viewer src="https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" auto-rotate></model-viewer>
-        </div>
-    </div>
-
-    <script>
-        function toggleItem(id) {
-            document.getElementById(id).classList.toggle('active');
-        }
-    </script>
 </body>
 </html>
