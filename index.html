@@ -337,17 +337,18 @@
                 const materials = viewer.model.materials;
                 
                 materials.forEach((material) => {
-                    // CHECK: Is this material transparent (like glass)?
-                    const isTransparent = material.alphaMode !== 'OPAQUE';
+                    // Check if the material has a base texture (an image)
+                    const hasTexture = material.pbrMetallicRoughness.baseColorTexture !== null;
 
-                    if (isTransparent) {
-                        // FIX FOR GLASS: Force it to be white to remove dark tint
+                    if (!hasTexture) {
+                        // It's likely GLASS/LIQUID (no texture image)
+                        // Force white to fix the "dark touch"
                         material.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
-                        material.setEmissiveFactor([0.1, 0.1, 0.1]);
+                        material.setEmissiveFactor([0.15, 0.15, 0.15]);
                     } else {
-                        // FIX FOR SOLID OBJECTS: Keep original colors, just boost light
-                        // We do NOT call setBaseColorFactor here so your textures stay!
-                        material.setEmissiveFactor([0.05, 0.05, 0.05]); 
+                        // It's a SOLID OBJECT (has a texture image)
+                        // Do NOT touch the BaseColor, only add a tiny lift
+                        material.setEmissiveFactor([0.02, 0.02, 0.02]);
                     }
                 });
 
