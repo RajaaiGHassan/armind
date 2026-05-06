@@ -178,6 +178,8 @@
     <div class="menu-container" id="menu-list"></div>
 
     <script>
+
+        const hdrUrl = "https://static.wixstatic.com/media/33d5f1_19329d21a9544279aa4272890ce0b454~mv2.jpg";
         const menuData = [
             // --- MENÚ A LA CARTA ---
             { id: 1, name: "Hummus de Garbanzos Artesano", price: "8,5€", category: "menú a la carta", desc: "Con Focaccia artesana.", mood: "Entrante" },
@@ -289,9 +291,18 @@
                         ${item.glb ? `
                             <button class="view-btn" onclick="toggleAR('ar-${item.id}', this)">EXPERIENCE IN 3D</button>
                             <div class="ar-wrapper" id="ar-${item.id}">
-                                <model-viewer src="${item.glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" touch-action="pan-y">
-                                    <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
-                                </model-viewer>
+                                <model-viewer 
+    src="${item.glb}" 
+    ar 
+    ar-modes="webxr scene-viewer quick-look" 
+    camera-controls 
+    shadow-intensity="1" 
+    environment-image="${hdrUrl}" 
+    environment-intensity="2" /* Boosts the reflection brightness */
+    exposure="1.8"             /* Boosts the overall light */
+    touch-action="pan-y">
+    <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
+</model-viewer>
                             </div>
                         ` : ''}
                     </div>
