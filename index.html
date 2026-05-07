@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sway Soul | Digital Menu</title>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Aboreto&display=swap');
@@ -91,12 +90,11 @@
             animation: fadeIn 0.3s ease forwards;
         }
 
-        /* FIXED: 4:5 Aspect Ratio Solution */
         .item-img {
             width: 100%;
             height: auto;
-            aspect-ratio: 4 / 5; /* This matches Instagram portrait ratio */
-            object-fit: cover;   /* Ensures the image fills the area elegantly */
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
             border-bottom: 1px solid #1e1e1e;
             display: block;
         }
@@ -115,47 +113,6 @@
         .price { color: var(--amber); font-weight: bold; font-size: 0.85rem; white-space: nowrap; }
         .description { color: var(--text-gray); font-size: 0.75rem; margin: 8px 0; font-family: sans-serif; letter-spacing: 0.5px; }
         .mood { font-size: 0.65rem; color: #666; font-style: italic; display: block; margin-top: 5px; }
-
-        .view-btn {
-            background: transparent;
-            color: var(--amber);
-            border: 1px solid var(--amber);
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 0.65rem;
-            font-weight: bold;
-            margin-top: 15px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .view-btn.active { background: var(--amber); color: #000; }
-
-        .ar-wrapper {
-            display: none;
-            margin-top: 0;
-            height: 450px; /* Slightly taller for vertical focus */
-            background: #000;
-            position: relative;
-        }
-
-        model-viewer { width: 100%; height: 100%; }
-
-        .ar-trigger {
-            background: #fff;
-            border: none;
-            padding: 10px 20px;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-weight: bold;
-            font-size: 0.75rem;
-            color: #000;
-            border-radius: 4px;
-            z-index: 10;
-        }
     </style>
 </head>
 <body>
@@ -178,8 +135,6 @@
     <div class="menu-container" id="menu-list"></div>
 
     <script>
-
-        const hdrUrl = "https://static.wixstatic.com/media/33d5f1_19329d21a9544279aa4272890ce0b454~mv2.jpg";
         const menuData = [
             // --- MENÚ A LA CARTA ---
             { id: 1, name: "Hummus de Garbanzos Artesano", price: "8,5€", category: "menú a la carta", desc: "Con Focaccia artesana.", mood: "Entrante" },
@@ -198,28 +153,28 @@
             { id: 14, name: "Sorbete de Limón y Albahaca", price: "8€", category: "menú a la carta", desc: "Hecho en casa, servido con Limoncello Artesano.", mood: "Dulce" },
 
             // --- PADELLINO GOURMET ---
-            { id: 15, name: "Mortazza", price: "15€ / 25€", category: "padellino gourmet", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Vinagre Balsámico.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1204-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 16, name: "Calabro", price: "15€ / 25€", category: "padellino gourmet", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1219-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 17, name: "Montanaro", price: "15€ / 25€", category: "padellino gourmet", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1227-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 18, name: "A Copa", price: "15€ / 25€", category: "padellino gourmet", desc: "Coppa Stagionata, Rucola, Pecorino Sardo DOP y Miel Mil Flores.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1450-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 19, name: "Parma – Reggio", price: "15€ / 25€", category: "padellino gourmet", desc: "Prosciutto di Parma 18 meses, Parmigiano Reggiano 18 meses, Tomate Cherry y Rucola.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1243-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 20, name: "F4 Formaggi", price: "15€ / 25€", category: "padellino gourmet", desc: "Rucola, Gorgonzola DOP, Brie, Parmigiano Reggiano DOP y Pecorino Sardo DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1251-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 15, name: "Mortazza", price: "15€ / 25€", category: "padellino gourmet", desc: "Mortadella DOP, Pistaccio, Rucola, Limón y Vinagre Balsámico.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1204-scaled.jpeg" },
+            { id: 16, name: "Calabro", price: "15€ / 25€", category: "padellino gourmet", desc: "Spianata Calabra, Rucola, Crema N’Duja y Gorgonzola DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1219-scaled.jpeg" },
+            { id: 17, name: "Montanaro", price: "15€ / 25€", category: "padellino gourmet", desc: "Speck, Brie, Rucola y Salsa Rosa.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1227-scaled.jpeg" },
+            { id: 18, name: "A Copa", price: "15€ / 25€", category: "padellino gourmet", desc: "Coppa Stagionata, Rucola, Pecorino Sardo DOP y Miel Mil Flores.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1450-scaled.jpeg" },
+            { id: 19, name: "Parma – Reggio", price: "15€ / 25€", category: "padellino gourmet", desc: "Prosciutto di Parma 18 meses, Parmigiano Reggiano 18 meses, Tomate Cherry y Rucola.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1243-scaled.jpeg" },
+            { id: 20, name: "F4 Formaggi", price: "15€ / 25€", category: "padellino gourmet", desc: "Rucola, Gorgonzola DOP, Brie, Parmigiano Reggiano DOP y Pecorino Sardo DOP.", mood: "300g / 600g", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1251-scaled.jpeg" },
 
             // --- TABLAS ---
-            { id: 21, name: "Tabla Mixta", price: "25€", category: "tablas", desc: "Mortadella DOP, Coppa, Speck DOP, Prosciutto 18M, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1164-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
-            { id: 22, name: "Tabla de Queso", price: "17€", category: "tablas", desc: "Parmigiano 18M, Brie, Gorgonzola DOP, Pecorino Sardo y Mermelada.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1198-scaled-1.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
-            { id: 23, name: "Tabla de Embutidos", price: "17€", category: "tablas", desc: "Mortadella DOP, Coppa Stagionata, Speck DOP, Prosciutto 18M, Spianata Calabra.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1174-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
+            { id: 21, name: "Tabla Mixta", price: "25€", category: "tablas", desc: "Mortadella DOP, Coppa, Speck DOP, Prosciutto 18M, Parmigiano, Brie, Gorgonzola.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1164-scaled.jpeg" },
+            { id: 22, name: "Tabla de Queso", price: "17€", category: "tablas", desc: "Parmigiano 18M, Brie, Gorgonzola DOP, Pecorino Sardo y Mermelada.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1198-scaled-1.jpeg" },
+            { id: 23, name: "Tabla de Embutidos", price: "17€", category: "tablas", desc: "Mortadella DOP, Coppa Stagionata, Speck DOP, Prosciutto 18M, Spianata Calabra.", mood: "Gourmet", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_1174-scaled.jpeg" },
 
             // --- SIGNATURE COCKTAILS ---
-            { id: 24, name: "Smoky Peach", price: "15€", category: "signature cocktails", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre, Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/507FF8B5-CF39-4966-AD6E-1790890D96CF-scaled.jpeg", glb: "https://static.wixstatic.com/3d/33d5f1_35beeb278440452eb98b1ff111417596.glb" },
-            { id: 25, name: "Malhigo", price: "15€", category: "signature cocktails", desc: "Gin Roku, Granadina Artesana, Zumo de Limón, Sal.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2025/09/Image-10.jpg", glb: "https://static.wixstatic.com/3d/33d5f1_700ce851d3b247e2a1a48daee98e5c8f.glb" },
-            { id: 26, name: "Bombastic", price: "14€", category: "signature cocktails", desc: "Hibiki Harmony, Orange & Chocolate Bitter, Agave.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2025/09/Image-9.jpg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 27, name: "Shrub Barrel", price: "12€", category: "signature cocktails", desc: "Whiskey Maker’s Mark, Shrub de Manzana, Zumo de Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07281-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 28, name: "Smoky Garden", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Chartreuse Verde, Cordial de Lima, Perfume de Laurel.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_0258.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 29, name: "O’ Deus", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Tequila 8, Falernum, Zumo de Limón, Agave.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07303-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 30, name: "Teka", price: "16€", category: "signature cocktails", desc: "Vodka Haku, Falernum Artesano, Tepache, Zumo de Limón, Angostura.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07357-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 31, name: "Plaquiri", price: "16€", category: "signature cocktails", desc: "Ron Blanco Santiago de Cuba, Cordial de Plátano Artesano, Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07061-copia-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
-            { id: 32, name: "Honey Fizz", price: "16€", category: "signature cocktails", desc: "Ron 8 años Santiago de Cuba, Honey mix Pera Artesano, Lima.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07298-scaled.jpeg", glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+            { id: 24, name: "Smoky Peach", price: "15€", category: "signature cocktails", desc: "Laphroaig 10, Melocotón Fermentado, Honey Jengibre, Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/507FF8B5-CF39-4966-AD6E-1790890D96CF-scaled.jpeg" },
+            { id: 25, name: "Malhigo", price: "15€", category: "signature cocktails", desc: "Gin Roku, Granadina Artesana, Zumo de Limón, Sal.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2025/09/Image-10.jpg" },
+            { id: 26, name: "Bombastic", price: "14€", category: "signature cocktails", desc: "Hibiki Harmony, Orange & Chocolate Bitter, Agave.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2025/09/Image-9.jpg" },
+            { id: 27, name: "Shrub Barrel", price: "12€", category: "signature cocktails", desc: "Whiskey Maker’s Mark, Shrub de Manzana, Zumo de Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07281-copia-scaled.jpeg" },
+            { id: 28, name: "Smoky Garden", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Chartreuse Verde, Cordial de Lima, Perfume de Laurel.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/IMG_0258.jpeg" },
+            { id: 29, name: "O’ Deus", price: "16€", category: "signature cocktails", desc: "Mezcal Rey Campero, Tequila 8, Falernum, Zumo de Limón, Agave.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07303-copia-scaled.jpeg" },
+            { id: 30, name: "Teka", price: "16€", category: "signature cocktails", desc: "Vodka Haku, Falernum Artesano, Tepache, Zumo de Limón, Angostura.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07357-copia-scaled.jpeg" },
+            { id: 31, name: "Plaquiri", price: "16€", category: "signature cocktails", desc: "Ron Blanco Santiago de Cuba, Cordial de Plátano Artesano, Limón.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07061-copia-scaled.jpeg" },
+            { id: 32, name: "Honey Fizz", price: "16€", category: "signature cocktails", desc: "Ron 8 años Santiago de Cuba, Honey mix Pera Artesano, Lima.", mood: "Signature", image: "https://www.swaysoul.com/wp-content/uploads/2026/03/DSC07298-scaled.jpeg" },
 
             // --- IBA COCKTAILS ---
             { id: 40, name: "Vieux Carré", price: "13€", category: "iba cocktails", desc: "Few Rye Whiskey, Cognac, Vermouth rojo, Benedictine.", mood: "IBA" },
@@ -288,24 +243,6 @@
                         </div>
                         <p class="description">${item.desc}</p>
                         <span class="mood">${item.mood}</span>
-                        ${item.glb ? `
-                            <button class="view-btn" onclick="toggleAR('ar-${item.id}', this)">EXPERIENCE IN 3D</button>
-                            <div class="ar-wrapper" id="ar-${item.id}">
-                                <model-viewer 
-    src="${item.glb}" 
-    ar 
-    ar-modes="webxr scene-viewer quick-look" 
-    camera-controls 
-    shadow-intensity="1" 
-    environment-image="${hdrUrl}" 
-    environment-intensity="2" 
-    exposure="2"
-    ar-placement="floor"
-    touch-action="pan-y">
-    <button slot="ar-button" class="ar-trigger">✨ VIEW IN YOUR SPACE</button>
-</model-viewer>
-                            </div>
-                        ` : ''}
                     </div>
                 `;
                 menuList.appendChild(itemDiv);
@@ -318,45 +255,6 @@
             renderMenu(category);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        function toggleAR(id, btn) {
-    const wrapper = document.getElementById(id);
-    const viewer = wrapper.querySelector('model-viewer');
-
-    if (wrapper.style.display === "block") {
-        wrapper.style.display = "none";
-        btn.innerText = "EXPERIENCE IN 3D";
-        btn.classList.remove('active');
-    } else {
-        wrapper.style.display = "block";
-        btn.innerText = "CLOSE 3D";
-        btn.classList.add('active');
-
-        if (viewer && !viewer.dataset.brightened) {
-            viewer.addEventListener('load', () => {
-                const materials = viewer.model.materials;
-                
-                materials.forEach((material) => {
-                    // Check if the material has a base texture (an image)
-                    const hasTexture = material.pbrMetallicRoughness.baseColorTexture !== null;
-
-                    if (!hasTexture) {
-                        // It's likely GLASS/LIQUID (no texture image)
-                        // Force white to fix the "dark touch"
-                        material.pbrMetallicRoughness.setBaseColorFactor([1, 1, 1, 1]);
-                        material.setEmissiveFactor([0.15, 0.15, 0.15]);
-                    } else {
-                        // It's a SOLID OBJECT (has a texture image)
-                        // Do NOT touch the BaseColor, only add a tiny lift
-                        material.setEmissiveFactor([0.02, 0.02, 0.02]);
-                    }
-                });
-
-                viewer.dataset.brightened = "true";
-            }, { once: true });
-        }
-    }
-}
 
         renderMenu('all');
     </script>
